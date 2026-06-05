@@ -1,0 +1,20 @@
+1. counter, iteration, why we use guardrails, production grade Agentic flows nusing langchain and Langraph
+2. How do you parse retrieval chunks, what is the strategies, how many in top-k
+3. In RAG, email is sending 10 times again and again instead of 1, how can you solve
+4. difference between Langchain and langgraph
+5. conversational memory in langgraph
+6. how do you define which agent to call
+7. how to create agents so that on github push, it will reviw and commit the correct code, check for vulnarabilities, and in case of issues it will crete JIRA to respective team
+8. map, reduce, filter in Python 
+9. where to use sync and async
+10. explain OOP concepts like encapsulation, abstract abc, inheritance
+11. opearations in list, dictionary, set, tuples
+12. Given a sorted array of integers and a target value, return the indices of the two numbers such that they add up to the target.
+Input: numbers = [2,7,11,15], target = 9
+13. You are given a string s.
+Your task is to find the first non-repeating character in the string and return it.
+If all characters repeat, return -1.
+A single string s consisting of lowercase English letters.
+s = "aabccdeff"
+
+Explain briefly from time and space complexity 
