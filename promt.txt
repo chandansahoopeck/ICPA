@@ -19,3 +19,71 @@ s = "aabccdeff"
 
 Explain briefly from time and space complexity 
 take reference from memory and our older conversations, help me with other similar questions along with above 13 
+
+1. In an agentic AI system, each user interaction belongs to a session.
+The backend needs to keep a short history of messages per session so that the agent can reason with context.
+Write a Python function that:
+Accepts session_id (string) and message (string)
+Stores the message in an in‑memory session history
+Keeps only the last 3 messages per session
+Returns the updated message history for that session
+If session_id or message is invalid, raise a ValueError.
+
+Ans: Correct the below answer for above question
+    
+def message_history(session_id : str, msg: str, limit: int = 3 )-> str:
+    my_map = {}
+    for item in data:
+        if item in my_map:
+            my_map[item] = 1
+        else:
+            my_map +=1
+
+2. Problem : Explain the particular snippet below:
+    
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, constr
+from typing import Dict, List, Optional
+ 
+app = FastAPI()
+DB: Dict[int, Dict] = {}
+seq = 0
+ 
+class TaskCreate(BaseModel):
+    title: constr(min_length=1)
+    done: bool = False
+ 
+class TaskUpdate(BaseModel):
+title: Optional[constr(min_length=1)] = None
+done: Optional[bool] = None
+ 
+class TaskRead(BaseModel):
+id: int
+title: str
+done: bool
+ 
+@app.post("/tasks", response_model=TaskRead, status_code=201)
+def create_task(payload: TaskCreate):
+global seq
+seq += 1
+DB[seq] = {"id": seq, "title": payload.title, "done": payload.done}
+return DB[seq]
+ 
+@app.get("/tasks/{task_id}", response_model=TaskRead)
+def get_task(task_id: int):
+if task_id not in DB:
+raise HTTPException(status_code=404, detail="Task not found")
+return DB[task_id]
+ 
+@app.patch("/tasks/{task_id}", response_model=TaskRead)
+def patch_task(task_id: int, payload: TaskUpdate):
+if task_id not in DB:
+raise HTTPException(status_code=404, detail="Task not found")
+t = DB[task_id]
+if payload.title is not None: t["title"] = payload.title
+if payload.done is not None: t["done"] = payload.done
+return t
+ 
+@app.get("/tasks", response_model=List[TaskRead])
+def list_tasks():
+return sorted(DB.values(), key=lambda x: x["id"])                        
